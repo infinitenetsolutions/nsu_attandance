@@ -1,0 +1,37 @@
+.login{
+    background-color: #c70013;
+    color: aliceblue;
+}
+.logo{
+    margin-top: 48px;
+    height:120px;
+
+    
+}
+.nav-link{
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+.loginback{
+    background-image: url('../img/backgroud/backgroud.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50.5rem;
+    background-color: #78a79c;
+
+}
+@media screen and (min-width: 560px) {
+    .loginback{
+        background-image: url('../img/backgroud/backgroud.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 35rem;
+      
+    }
+}
+
+.main-footer{
+    color: #a82b12;
+}
+.infinite{
+    color: green;
+}
