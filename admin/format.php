@@ -1,0 +1,1 @@
+<pre> student_id , student_name ,student_roll_number, parent_mob_no_1 parent_mob_no_2, student_dob,student_grade_id </pre>

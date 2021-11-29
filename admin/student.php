@@ -242,7 +242,7 @@ include('header.php');
             <div class="row">
               <div class="col-md-12">
                 <input type="file" name="importExcelFile" class="form-control" />
-                <span id="" class="text-danger"> CSV format only... </span>
+                <span id="" class="text-danger"> <a href="format.php">CSV format only...</a>  </span>
               </div>
             </div>
           </div>
