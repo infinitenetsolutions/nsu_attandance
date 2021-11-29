@@ -39,7 +39,7 @@ if(!isset($_SESSION["admin_id"]))
 
 <div class="jumbotron-small text-center" style="padding-bottom: 10px; margin-bottom: 1px ; background-color:#b42a16;">
   <img src="../nsu_logo.png" style="height:120px;">
-  <h2 class="text-white" >NSU ATTANDANCE</h2>
+  <h2 class="text-white" >NSU ATTENDANCE</h2>
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

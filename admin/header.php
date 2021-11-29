@@ -15,7 +15,7 @@ if (!isset($_SESSION["admin_id"])) {
 <html lang="en">
 
 <head>
-  <title>SRINATH Student Attendance System </title>
+  <title>Netaji Subhas Student Attendance System </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" sizes="56x56" href="../img/icon/icon.png">
@@ -42,7 +42,7 @@ if (!isset($_SESSION["admin_id"])) {
 
 <div class="jumbotron-small text-center" style="padding-bottom: 10px; margin-bottom: 1px ; background-color:#b42a16;">
   <img src="../nsu_logo.png" style="height:120px;">
-  <h2 class="text-white" >NSU ATTANDANCE</h2>
+  <h2 class="text-white" >NSU ATTENDANCE</h2>
 </div>
 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
