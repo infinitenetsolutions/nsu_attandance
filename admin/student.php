@@ -73,7 +73,7 @@ include('header.php');
       <div class="row">
         <div class="col-md-6">All Student List</div>
         <div class="col-md-6" align="right">
-          <select style="width:100%;" class="form-control" onchange="changeGrade()" id="changeGradeId">
+          <select style="width:100%;" class="form-control selectpicker" data-show-subtext="true" data-live-search="true" onchange="changeGrade()" id="changeGradeId">
             <option value="all" <?php
                                   echo "disabled selected";
                                 ?>>-Select Semester-</option>
@@ -129,7 +129,9 @@ include('header.php');
 
 <script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="../css/datepicker.css" />
-
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <style>
   .datepicker {
     z-index: 1600 !important;
