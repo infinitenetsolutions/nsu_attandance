@@ -21,7 +21,7 @@ include('header.php');
       <div class="row">
         <div class="col-md-6">All Student Attendance List</div>
         <div class="col-md-6" align="right">
-        	<select  class="selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true" >
+        	<select  class="selectpicker from-control" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true" >
         	    <option value="all" <?php if($row["grade_id"] == "all"){ echo "disabled selected"; } ?> >All</option>
         	    <?php 
         	        $query = "
