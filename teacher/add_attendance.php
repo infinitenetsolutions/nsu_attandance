@@ -21,7 +21,7 @@ include('header.php');
       <div class="row">
         <div class="col-md-6">All Student Attendance List</div>
         <div class="col-md-6" align="right">
-        	<select  class="selectpicker from-control" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true" >
+        	<select style="width:100%;" class="form-control selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true" >
         	    <option value="all" <?php if($row["grade_id"] == "all"){ echo "disabled selected"; } ?> >All</option>
         	    <?php 
         	        $query = "
@@ -69,7 +69,6 @@ include('header.php');
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-
 
 <style>
     .datepicker
