@@ -56,6 +56,24 @@ if (isset($_POST["importExcelButton"])) {
 //student.php
 
 include('header.php');
+include '../include/connection.php';
+$grade_total='';
+if(isset($_GET['grade'])){
+$grade=$_GET['grade'];
+if($grade!="all"){
+$grade_qury="SELECT * FROM `tbl_student` WHERE `student_grade_id`='$grade'";
+$grade_result=mysqli_query($connection,$grade_qury);
+$grade_total=mysqli_num_rows($grade_result);
+}else{
+  $grade_qury="SELECT * FROM `tbl_student` WHERE 1";
+  $grade_result=mysqli_query($connection,$grade_qury);
+  $grade_total=mysqli_num_rows($grade_result);
+}
+}else {
+  $grade_qury="SELECT * FROM `tbl_student` WHERE 1";
+  $grade_result=mysqli_query($connection,$grade_qury);
+  $grade_total=mysqli_num_rows($grade_result);
+}
 
 ?>
 
@@ -72,7 +90,7 @@ include('header.php');
     </div>
     <div class="card-header">
       <div class="row">
-        <div class="col-md-8">All Student List</div>
+        <div class="col-md-8">Total number of Student List : -  <span class="text-danger font-weight-bold"><?php echo $grade_total; ?></span> </div>
         <div class="col-md-4" align="right">
           <select style="width:100%;" class="form-control selectpicker" data-show-subtext="true" data-live-search="true" onchange="changeGrade()" id="changeGradeId">
             <option value="all" <?php
