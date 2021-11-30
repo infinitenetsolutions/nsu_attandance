@@ -1,5 +1,5 @@
 <?php
-
+$page=2;
 //grade.php
 
 include('header.php');

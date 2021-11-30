@@ -35,3 +35,10 @@
 .infinite{
     color: green;
 }
+li a{
+    font-weight: bold;
+}
+.nav-link{
+    padding: 15px;
+    font-size: 17px;
+}

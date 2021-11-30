@@ -1,8 +1,9 @@
 <?php
+$page=4;
 $conn = '';
 if (isset($_POST["importExcelButton"])) {
 
-// here i to creating the connection for exporting the data in to excel
+  // here i to creating the connection for exporting the data in to excel
   if ($_SERVER['HTTP_HOST'] == "localhost") {
     $conn = mysqli_connect("localhost", "root", "", "nsunivac_attendance");
   } else {
@@ -71,12 +72,12 @@ include('header.php');
     </div>
     <div class="card-header">
       <div class="row">
-        <div class="col-md-6">All Student List</div>
-        <div class="col-md-6" align="right">
+        <div class="col-md-8">All Student List</div>
+        <div class="col-md-4" align="right">
           <select style="width:100%;" class="form-control selectpicker" data-show-subtext="true" data-live-search="true" onchange="changeGrade()" id="changeGradeId">
             <option value="all" <?php
-                                  echo "disabled selected";
-                                ?>>-Select Semester-</option>
+                                echo " selected";
+                                ?>>- All -</option>
             <?php
             $query = "
             		SELECT * FROM tbl_grade ORDER BY grade_name ASC
@@ -85,9 +86,9 @@ include('header.php');
             $statement->execute();
             $result = $statement->fetchAll();
             foreach ($result as $row) {
-              
+
             ?>
-              <option value="<?php echo $row["grade_id"]; ?>" <?php if ($row["grade_id"] == $_GET["grade"]) {
+              <option value="<?php echo $row["grade_id"]; ?>" <?php if (isset($_GET['grade']))  if ($row["grade_id"] == $_GET["grade"]) {
                                                                 echo "disabled selected";
                                                               } ?>><?php echo $row["grade_name"]; ?></option>
             <?php } ?>
@@ -129,8 +130,8 @@ include('header.php');
 
 <script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="../css/datepicker.css" />
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+<link rel="stylesheet" href="../css/bootstrap.select.min.css">
+<link rel="stylesheet" href="../css/bootstrap-select.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <style>
   .datepicker {
@@ -244,7 +245,7 @@ include('header.php');
             <div class="row">
               <div class="col-md-12">
                 <input type="file" name="importExcelFile" class="form-control" />
-                <span id="" class="text-danger"> <a href="format.php">CSV format only...</a>  </span>
+                <span id="" class="text-danger"> <a href="format.xls">CSV format only...</a> </span>
               </div>
             </div>
           </div>
