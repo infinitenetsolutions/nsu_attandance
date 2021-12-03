@@ -4,22 +4,22 @@ $page = 5;
 
 include('header.php');
 include '../include/connection.php';
-$grade_total='';
-if(isset($_GET['grade'])){
-$grade=$_GET['grade'];
-if($grade!="all"){
-$grade_qury="SELECT * FROM `tbl_attendance` WHERE `grade_id`='$grade'";
-$grade_result=mysqli_query($connection,$grade_qury);
-$grade_total=mysqli_num_rows($grade_result);
-}else{
-  $grade_qury="SELECT * FROM `tbl_attendance` WHERE 1";
-  $grade_result=mysqli_query($connection,$grade_qury);
-  $grade_total=mysqli_num_rows($grade_result);
-}
-}else {
-  $grade_qury="SELECT * FROM `tbl_attendance` WHERE 1";
-  $grade_result=mysqli_query($connection,$grade_qury);
-  $grade_total=mysqli_num_rows($grade_result);
+$grade_total = '';
+if (isset($_GET['grade'])) {
+  $grade = $_GET['grade'];
+  if ($grade != "all") {
+    $grade_qury = "SELECT * FROM `tbl_attendance` WHERE `grade_id`='$grade'";
+    $grade_result = mysqli_query($connection, $grade_qury);
+    $grade_total = mysqli_num_rows($grade_result);
+  } else {
+    $grade_qury = "SELECT * FROM `tbl_attendance` WHERE 1";
+    $grade_result = mysqli_query($connection, $grade_qury);
+    $grade_total = mysqli_num_rows($grade_result);
+  }
+} else {
+  $grade_qury = "SELECT * FROM `tbl_attendance` WHERE 1";
+  $grade_result = mysqli_query($connection, $grade_qury);
+  $grade_total = mysqli_num_rows($grade_result);
 }
 
 ?>
@@ -37,7 +37,7 @@ $grade_total=mysqli_num_rows($grade_result);
     </div>
     <div class="card-header">
       <div class="row">
-        <div class="col-md-8">Total  Student Attendance List : - <span class="text-danger font-weight-bold"><?php echo $grade_total; ?></span></div>
+        <div class="col-md-8">Total Student Attendance List : - <span class="text-danger font-weight-bold"><?php echo $grade_total; ?></span></div>
         <div class="col-md-4" align="right">
           <select class="form-control selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true">
             <option value="all" <?php if (isset($row['grade_id']) && ($row["grade_id"] == "all")) {
