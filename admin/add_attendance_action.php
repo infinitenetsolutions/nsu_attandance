@@ -178,7 +178,6 @@ if (isset($_POST["action"])) {
 						':grade_id'		        =>	$grade_id,
 						':teacher_id'			=>	0
 					);
-					// echo	$_POST["attendance_status".$student_id[$count]];
 					if ($_POST["attendance_status" . $student_id[$count]] == "Absent") {
 						$sub_query = "
                           SELECT * FROM tbl_student 
@@ -190,11 +189,11 @@ if (isset($_POST["action"])) {
 						foreach ($student_result as $student) {
 							$mobileNumber = $student["parent_mob_no_1"];
 							$mobileNumber2 = $student["parent_mob_no_2"];
-							$message = "Dear Sir/Madam,\n Your ward is ABSENT today.\n\n Regards NSU University, \nJamshedpur. ";
-							$senderId = "SUJSR";
+							$message = "Dear Sir/Madam,\n Your ward is ABSENT today.\n\n Regards NSU, \nJamshedpur. ";
+							$senderId = "NSUJSR";
 							$serverUrl = "msg.msgclub.net";
-							$authKey = "fbfdee58a904a1d82641561a74c354";
-							$routeId = "1";
+							$authKey = "6a4743a8355fb97aa42dc2452185a1cd";
+							$route = "1";
 							$postData = array(
 								'mobileNumbers' => $mobileNumber . ',' . $mobileNumber2,
 								'smsContent' => $message,
@@ -214,7 +213,7 @@ if (isset($_POST["action"])) {
 								CURLOPT_SSL_VERIFYHOST => 0,
 								CURLOPT_SSL_VERIFYPEER => 0
 							));
-							echo  $output = curl_exec($ch);
+							$output = curl_exec($ch);
 						}
 					}
 					$query = "
