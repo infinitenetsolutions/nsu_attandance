@@ -72,14 +72,18 @@ if (!isset($_SESSION["admin_id"])) {
         <li class="nav-item <?php if ($page == 5) {
                               echo 'active';
                             } ?>">
-          <a class="nav-link" href="add_attendance.php">Attendance/Report</a>
+          <a class="nav-link" href="add_attendance.php">Attendance</a>
         </li>
         <!--      
       <li class="nav-item">
         <a class="nav-link" href="attendance.php">Attendance Report</a>
       </li> -->
 
-
+      <li class="nav-item <?php if ($page == 6) {
+                              echo 'active';
+                            } ?>">
+          <a class="nav-link" href="finalreport.php">Report</a>
+        </li>
 
       </ul>
     </div>
