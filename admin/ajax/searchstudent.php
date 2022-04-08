@@ -2,7 +2,7 @@
 include '../../include/connection.php';
 include('../database_connection.php');
 
-
+$search = $_GET["search"];
  $query = ' SELECT * FROM tbl_student 
 LEFT JOIN tbl_attendance 
 ON tbl_attendance.student_id = tbl_student.student_id 
@@ -10,10 +10,10 @@ INNER JOIN tbl_grade
 ON tbl_grade.grade_id = tbl_student.student_grade_id 
 INNER JOIN tbl_teacher 
 ON tbl_teacher.teacher_grade_id = tbl_grade.grade_id  
-WHERE tbl_student.student_name LIKE "%' . $_GET["search"] . '%" 
-|| tbl_student.student_roll_number LIKE "%' . $_GET["search"] . '%" 
-|| tbl_grade.grade_name LIKE "%' . $_GET["search"] . '%" 
-|| tbl_teacher.teacher_name LIKE "%' . $_GET["search"] . '%" 
+WHERE tbl_student.student_name LIKE "%' .$search. '%" 
+|| tbl_student.student_roll_number LIKE "%' . $search. '%" 
+|| tbl_grade.grade_name LIKE "%' . $search. '%" 
+|| tbl_teacher.teacher_name LIKE "%' . $search. '%" 
 LIMIT 50 ';
 $result = mysqli_query($connection, $query);
 

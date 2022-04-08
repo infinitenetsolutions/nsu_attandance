@@ -41,9 +41,39 @@ $result = mysqli_query($connection, $query);
     <div class="card-body">
       <div class="table-responsive">
         <div class="row">
-          <div class="col-sm-9"></div>
-          <div class="col-sm-3 mb-2">
-            <input type="text" onkeyup="search(this.value)" placeholder="Search student.." class="form-control form-control-sm">
+          <div class="col-sm-6">
+
+
+          </div>
+          <div class="col-sm-6 mb-2">
+            <div class="row">
+              <div class="col-sm-6">
+                <!-- <select class="form-control form-control-sm selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true">
+                  <option value="all" <?php if (isset($row['grade_id']) && ($row["grade_id"] == "all")) {
+                                        echo "disabled selected";
+                                      } ?>>All</option>
+                  <?php
+                  $query = "
+            		SELECT * FROM tbl_grade ORDER BY grade_name ASC
+            		";
+                $result1 = mysqli_query($connection, $query);
+
+                  while ($row1=mysqli_fetch_array($result1)) {
+                  ?>
+                    <option value="<?php echo $row1["grade_id"]; ?>
+                      " <?php if (isset($_GET['grade'])) {
+                          if ($row1["grade_id"] == $_GET["grade"]) {
+                            echo "disabled selected";
+                          }
+                        } ?>><?php echo $row1["grade_name"]; ?></option>
+                  <?php } ?>
+
+                </select> -->
+              </div>
+              <div class="col-sm-6">
+                <input type="text" onkeyup="search(this.value)" placeholder="Search student.." class="form-control form-control-sm">
+              </div>
+            </div>
           </div>
         </div>
         <table class="table table-striped table-bordered">
@@ -205,11 +235,12 @@ $result = mysqli_query($connection, $query);
       window.location.href
     } else {
       var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function(){
+      xmlhttp.onreadystatechange = function() {
         document.getElementById("search_data").innerHTML = this.responseText;
       };
       xmlhttp.open("GET", "./ajax/searchstudent.php?search=" + data, true);
       xmlhttp.send();
     }
   }
+  
 </script>
