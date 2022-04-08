@@ -1,26 +1,55 @@
 <?php
 
 //index.php
-$page=1;
+$page = 1;
 include('header.php');
+include '../include/connection.php';
+include '../include/function.inc.php';
+
+$limit = 10;
+if (isset($_GET["page"])) {
+  $page  = $_GET["page"];
+} else {
+  $page = 1;
+};
+$start_from = ($page - 1) * $limit;
+$s_no = $start_from + 1;
+$query = "
+SELECT * FROM tbl_student 
+LEFT JOIN tbl_attendance 
+ON tbl_attendance.student_id = tbl_student.student_id 
+INNER JOIN tbl_grade 
+ON tbl_grade.grade_id = tbl_student.student_grade_id 
+INNER JOIN tbl_teacher 
+ON tbl_teacher.teacher_grade_id = tbl_grade.grade_id  LIMIT $start_from, $limit 
+";
+$result = mysqli_query($connection, $query);
+
 
 ?>
 
 <div class="container" style="margin-top:30px">
   <div class="card">
-  	<div class="card-header">
+    <div class="card-header">
       <div class="row">
         <div class="col-md-9">Overall Student Attendance Status</div>
         <div class="col-md-3" align="right">
-          
+
         </div>
       </div>
     </div>
-  	<div class="card-body">
-  		<div class="table-responsive">
-        <table class="table table-striped table-bordered" id="student_table">
+    <div class="card-body">
+      <div class="table-responsive">
+        <div class="row">
+          <div class="col-sm-9"></div>
+          <div class="col-sm-3 mb-2">
+            <input type="text" onkeyup="search(this.value)" placeholder="Search student.." class="form-control form-control-sm">
+          </div>
+        </div>
+        <table class="table table-striped table-bordered">
           <thead>
             <tr>
+              <th>S.NO</th>
               <th>Student Name</th>
               <th>Roll Number</th>
               <th>Grade</th>
@@ -29,26 +58,42 @@ include('header.php');
               <th>Report</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="search_data">
 
+            <?php
+
+            while ($row = mysqli_fetch_array($result)) { ?>
+              <tr>
+                <td><?= $s_no ?></td>
+                <td><?= $row['student_name'] ?></td>
+                <td><?= $row["student_roll_number"]; ?></td>
+                <td><?= $row["grade_name"]; ?></td>
+                <td><?= $row["teacher_name"]; ?></td>
+                <td><?= get_attendance_percentage($connect, $row["student_id"]); ?></td>
+                <td><?= '<button type="button" name="report_button" data-student_id="' . $row["student_id"] . '" class="btn btn-info btn-sm report_button">Report</button>&nbsp;&nbsp;&nbsp;<button type="button" name="chart_button" data-student_id="' . $row["student_id"] . '" class="btn btn-danger btn-sm report_button">Chart</button>'; ?></td>
+              </tr>
+            <?php $s_no++;
+            }  ?>
           </tbody>
         </table>
-  		</div>
-  	</div>
+        <?php paginate($connection, 'tbl_student', '10', 'index.php', '1', 'student_id') ?>
+      </div>
+    </div>
   </div>
 </div>
 <?php include '../include/footer.php'; ?>
 </body>
+
 </html>
 
 <script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="../css/datepicker.css" />
 
 <style>
-    .datepicker
-    {
-      z-index: 1600 !important; /* has to be larger than 1050 */
-    }
+  .datepicker {
+    z-index: 1600 !important;
+    /* has to be larger than 1050 */
+  }
 </style>
 
 <div class="modal" id="formModal">
@@ -91,73 +136,80 @@ include('header.php');
 </div>
 
 <script>
-$(document).ready(function(){
-	 
-   var dataTable = $('#student_table').DataTable({
-    "processing":true,
-    "serverSide":true,
-    "order":[],
-    "ajax":{
-      url:"attendance_action.php",
-      type:"POST",
-      data:{action:'index_fetch'}
-    }
-   });
+  $(document).ready(function() {
 
-   $('.input-daterange').datepicker({
-    todayBtn:"linked",
-    format:'yyyy-mm-dd',
-    autoclose:true,
-    container: '#formModal modal-body'
-   });
-
-   $(document).on('click', '.report_button', function(){
-    var student_id = $(this).data('student_id');
-    $('#student_id').val(student_id);
-    $('#formModal').modal('show');
-   });
-
-   $('#create_report').click(function(){
-    var student_id = $('#student_id').val();
-    var from_date = $('#from_date').val();
-    var to_date = $('#to_date').val();
-    var error = 0;
-    var action = $('#report_action').val();
-    if(from_date == '')
-    {
-      $('#error_from_date').text('From Date is Required');
-      error++;
-    }
-    else
-    {
-      $('#error_from_date').text('');
-    }
-    if(to_date == '')
-    {
-      $('#error_to_date').text("To Date is Required");
-      error++;
-    }
-    else
-    {
-      $('#error_to_date').text('');
-    }
-
-    if(error == 0)
-    {
-      $('#from_date').val('');
-      $('#to_date').val('');
-      $('#formModal').modal('hide');
-      if(action == 'pdf_report')
-      {
-        window.open("report.php?action=student_report&student_id="+student_id+"&from_date="+from_date+"&to_date="+to_date);
+    var dataTable = $('#student_table').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "order": [],
+      "ajax": {
+        url: "attendance_action.php",
+        type: "POST",
+        data: {
+          action: 'index_fetch'
+        }
       }
-      if(action == 'chart_report')
-      {
-        location.href = "chart.php?action=student_chart&student_id="+student_id+"&from_date="+from_date+"&to_date="+to_date;
+    });
+
+    $('.input-daterange').datepicker({
+      todayBtn: "linked",
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      container: '#formModal modal-body'
+    });
+
+    $(document).on('click', '.report_button', function() {
+      var student_id = $(this).data('student_id');
+      $('#student_id').val(student_id);
+      $('#formModal').modal('show');
+    });
+
+    $('#create_report').click(function() {
+      var student_id = $('#student_id').val();
+      var from_date = $('#from_date').val();
+      var to_date = $('#to_date').val();
+      var error = 0;
+      var action = $('#report_action').val();
+      if (from_date == '') {
+        $('#error_from_date').text('From Date is Required');
+        error++;
+      } else {
+        $('#error_from_date').text('');
       }
+      if (to_date == '') {
+        $('#error_to_date').text("To Date is Required");
+        error++;
+      } else {
+        $('#error_to_date').text('');
+      }
+
+      if (error == 0) {
+        $('#from_date').val('');
+        $('#to_date').val('');
+        $('#formModal').modal('hide');
+        if (action == 'pdf_report') {
+          window.open("report.php?action=student_report&student_id=" + student_id + "&from_date=" + from_date + "&to_date=" + to_date);
+        }
+        if (action == 'chart_report') {
+          location.href = "chart.php?action=student_chart&student_id=" + student_id + "&from_date=" + from_date + "&to_date=" + to_date;
+        }
+      }
+
+    });
+
+  });
+</script>
+<script>
+  function search(data) {
+    if (data.length == '') {
+      window.location.href
+    } else {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function(){
+        document.getElementById("search_data").innerHTML = this.responseText;
+      };
+      xmlhttp.open("GET", "./ajax/searchstudent.php?search=" + data, true);
+      xmlhttp.send();
     }
-
-   });
-
-});
+  }
 </script>
