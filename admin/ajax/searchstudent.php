@@ -14,7 +14,7 @@ WHERE tbl_student.student_name LIKE "%' . $_GET["search"] . '%"
 || tbl_student.student_roll_number LIKE "%' . $_GET["search"] . '%" 
 || tbl_grade.grade_name LIKE "%' . $_GET["search"] . '%" 
 || tbl_teacher.teacher_name LIKE "%' . $_GET["search"] . '%" 
- ';
+LIMIT 50 ';
 $result = mysqli_query($connection, $query);
 
 ?>
