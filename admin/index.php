@@ -5,6 +5,18 @@ $page = 1;
 include('header.php');
 include '../include/connection.php';
 include '../include/function.inc.php';
+// checking the grade has been seated into the url or not
+
+if(isset($_GET['grade'])){
+$_SESSION['grade']=$_GET['grade'];
+}
+ $_SESSION['grade'];
+// checking the grade having or not into the session
+if(!isset($_SESSION['grade']) || $_SESSION['grade']=='all' ){
+  $_SESSION['condition']=1;
+}else{
+  $_SESSION['condition']="tbl_student.student_grade_id=".$_SESSION['grade'];
+}
 
 $limit = 10;
 if (isset($_GET["page"])) {
@@ -14,14 +26,16 @@ if (isset($_GET["page"])) {
 };
 $start_from = ($page - 1) * $limit;
 $s_no = $start_from + 1;
-$query = "
+ $query = "
 SELECT * FROM tbl_student 
 LEFT JOIN tbl_attendance 
 ON tbl_attendance.student_id = tbl_student.student_id 
 INNER JOIN tbl_grade 
 ON tbl_grade.grade_id = tbl_student.student_grade_id 
 INNER JOIN tbl_teacher 
-ON tbl_teacher.teacher_grade_id = tbl_grade.grade_id  LIMIT $start_from, $limit 
+ON tbl_teacher.teacher_grade_id = tbl_grade.grade_id 
+WHERE ".$_SESSION['condition']."
+LIMIT $start_from, $limit 
 ";
 $result = mysqli_query($connection, $query);
 
@@ -48,7 +62,7 @@ $result = mysqli_query($connection, $query);
           <div class="col-sm-6 mb-2">
             <div class="row">
               <div class="col-sm-6">
-                <!-- <select class="form-control form-control-sm selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true">
+                <select class="form-control form-control-sm selectpicker" onchange="changeGrade()" id="changeGradeId" data-show-subtext="true" data-live-search="true">
                   <option value="all" <?php if (isset($row['grade_id']) && ($row["grade_id"] == "all")) {
                                         echo "disabled selected";
                                       } ?>>All</option>
@@ -68,7 +82,7 @@ $result = mysqli_query($connection, $query);
                         } ?>><?php echo $row1["grade_name"]; ?></option>
                   <?php } ?>
 
-                </select> -->
+                </select>
               </div>
               <div class="col-sm-6">
                 <input type="text" onkeyup="search(this.value)" placeholder="Search student.." class="form-control form-control-sm">
@@ -106,7 +120,7 @@ $result = mysqli_query($connection, $query);
             }  ?>
           </tbody>
         </table>
-        <?php paginate($connection, 'tbl_student', '10', 'index.php', '1', 'student_id') ?>
+        <?php paginate($connection, 'tbl_student', '10', 'index.php', $_SESSION['condition'], 'student_id') ?>
       </div>
     </div>
   </div>
@@ -164,7 +178,6 @@ $result = mysqli_query($connection, $query);
     </div>
   </div>
 </div>
-
 <script>
   $(document).ready(function() {
 
@@ -243,4 +256,10 @@ $result = mysqli_query($connection, $query);
     }
   }
   
+</script>
+<script>
+  function changeGrade() {
+    var changeValue = document.getElementById('changeGradeId').value;
+    window.location.href = "index.php?grade=" + changeValue;
+  }
 </script>

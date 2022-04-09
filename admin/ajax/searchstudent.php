@@ -1,6 +1,7 @@
 <?php
 include '../../include/connection.php';
 include('../database_connection.php');
+session_start();
 
 $search = $_GET["search"];
  $query = ' SELECT * FROM tbl_student 
@@ -14,6 +15,7 @@ WHERE tbl_student.student_name LIKE "%' .$search. '%"
 || tbl_student.student_roll_number LIKE "%' . $search. '%" 
 || tbl_grade.grade_name LIKE "%' . $search. '%" 
 || tbl_teacher.teacher_name LIKE "%' . $search. '%" 
+&& '.$_SESSION['condition'].'
 LIMIT 50 ';
 $result = mysqli_query($connection, $query);
 
