@@ -10,7 +10,7 @@ include '../include/function.inc.php';
 if(isset($_GET['grade'])){
 $_SESSION['grade']=$_GET['grade'];
 }
- $_SESSION['grade'];
+
 // checking the grade having or not into the session
 if(!isset($_SESSION['grade']) || $_SESSION['grade']=='all' ){
   $_SESSION['condition']=1;
@@ -75,9 +75,9 @@ $result = mysqli_query($connection, $query);
                   while ($row1=mysqli_fetch_array($result1)) {
                   ?>
                     <option value="<?php echo $row1["grade_id"]; ?>
-                      " <?php if (isset($_GET['grade'])) {
-                          if ($row1["grade_id"] == $_GET["grade"]) {
-                            echo "disabled selected";
+                      " <?php if (isset($_SESSION['grade'])) {
+                          if ($row1["grade_id"] == $_SESSION["grade"]) {
+                            echo "selected disabled";
                           }
                         } ?>><?php echo $row1["grade_name"]; ?></option>
                   <?php } ?>
