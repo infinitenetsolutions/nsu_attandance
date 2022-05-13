@@ -12,6 +12,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
         server: 13.233.101.59
-        username:  ftpattandance
+        username:  ftpa
         password: ${{ secrets.ftp_password1 }}
         
