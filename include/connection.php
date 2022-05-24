@@ -6,4 +6,5 @@ if($_SERVER['HTTP_HOST']=="localhost"){
 else{
     $connection = 	mysqli_connect("localhost","nsunivac_attendance","4Ckt6FML9","nsunivac_attendance");  
 }
+
 ?>
